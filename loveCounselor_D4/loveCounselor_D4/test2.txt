@@ -1,0 +1,176 @@
+#include <iostream>
+#include <vector>
+#include <utility>
+#include <algorithm>
+using namespace std;
+
+typedef struct worm{
+	int x;  // x-coordinate
+	int y;  // y-coordinate
+}worm;
+
+typedef struct dist{
+	int i;
+	int j;
+	long long val;
+}dist;
+
+#define MAX_NUM 21000
+worm w[20];
+dist d[MAX_NUM];
+dist heap[MAX_NUM];
+int heapSize = 0;
+bool visited[20];
+int t, n, cnt = 0;   // t: testcase, n: # of earthwormm
+int vCnt = 0;
+
+int main(){
+	long long min = 9999999999, res, sum = 0;   // res=|V|
+	vector< long long > distance;
+
+
+	//cin >> t;rm,
+	//for (int test = 0; test < t; test++){
+	cin >> n;
+	for (int i = 0; i < n; i++){
+		cin >> w[i].x >> w[i].y;  // coordinate
+	}
+
+	for (int i = 0; i < n; i++){
+		for (int j = i + 1; j < n; j++){
+			res = ((w[i].x - w[j].x) * (w[i].x - w[j].x)) + ((w[i].y - w[j].y) * (w[i].y - w[j].y));
+			if (min > res){
+				min = res;
+				d[cnt].val = min;
+				d[cnt].i = i;
+				d[cnt].j = j;
+			}
+			cnt++;
+		}
+		
+
+		cout << res << endl;
+		return 0;
+	}
+}
+
+
+
+//#include <iostream>
+//#include <vector>
+//#include <utility>
+//#include <algorithm>
+//using namespace std;
+//
+//typedef struct worm{
+//	int x;  // x-coordinate
+//	int y;  // y-coordinate
+//}worm;
+//
+//typedef struct dist{
+//	int i;
+//	int j;
+//	long long val;
+//}dist;
+//
+//#define MAX_NUM 21000
+//worm w[20];
+//dist d[MAX_NUM];
+//dist heap[MAX_NUM];
+//int heapSize = 0;
+//bool visited[20];
+//int t, n, cnt = 0;   // t: testcase, n: # of earthwormm
+//int vCnt = 0;
+//
+//int heapPush(dist val){
+//	int p, cur = heapSize - 1;
+//
+//	if (heapSize >= MAX_NUM)
+//		return -1;
+//
+//	heap[heapSize++] = val;
+//	while ((cur - 1) / 2 >= 0){
+//		p = (cur - 1) / 2;
+//		if (heap[p].val > heap[cur].val){
+//			dist temp = heap[p];
+//			heap[p] = heap[cur];
+//			heap[cur] = heap[p];
+//			cur = p;
+//		}
+//	}
+//}
+//
+//int heapPop(dist* obj){
+//	int cur = 0;
+//	long long tempL, tempR;
+//	dist temp;
+//	if (heapSize == 0)
+//		return -1;
+//
+//	*obj = heap[0];
+//	heap[0] = heap[--heapSize];
+//	while (cur * 2 + 2 <= heapSize){
+//		tempL = tempR = 0;
+//		tempL = heap[cur * 2 + 1].val;//check left
+//		tempR = heap[cur * 2 + 2].val;//check right
+//		if (tempL < tempR && tempL < heap[cur].val){
+//			temp = heap[cur];
+//			heap[cur] = heap[cur * 2 + 1];
+//			heap[cur * 2 + 1] = temp;
+//			cur = cur * 2 + 1;
+//		}
+//		else if (tempR < tempL && tempR < heap[cur].val){
+//			temp = heap[cur];
+//			heap[cur] = heap[cur * 2 + 2];
+//			heap[cur * 2 + 2] = temp;
+//			cur = cur * 2 + 2;
+//		}
+//		else {
+//			break;
+//		}
+//	}
+//}
+//
+//void init() {
+//	cnt = 0;
+//	heapSize = 0;
+//	vCnt = 0;
+//	for (int i = 0; i < n; i++){
+//		visited[i] = false;
+//	}
+//}
+//
+//int main(){
+//	long long min = 9999999999, res, sum = 0;   // res=|V|
+//	vector< long long > distance;
+//
+//
+//	//cin >> t;rm,
+//	//for (int test = 0; test < t; test++){
+//	cin >> n;
+//	for (int i = 0; i < n; i++){
+//		cin >> w[i].x >> w[i].y;  // coordinate
+//	}
+//
+//	for (int i = 0; i < n; i++){
+//		for (int j = i + 1; j < n; j++){
+//			d[cnt].val = ((w[i].x - w[j].x) * (w[i].x - w[j].x)) + ((w[i].y - w[j].y) * (w[i].y - w[j].y));
+//			d[cnt].i = i;
+//			d[cnt].j = j;
+//			heapPush(d[cnt]);
+//			cnt++;
+//		}
+//		res = 0;
+//		dist temp;
+//		while (vCnt < n){
+//			heapPop(&temp);
+//			if (visited[temp.i] != true && visited[temp.j] != true){
+//				visited[temp.i] = true;
+//				visited[temp.j] = true;
+//				res += temp.val;
+//			}
+//		}
+//		cout << res << endl;
+//		return 0;
+//	}
+//}
